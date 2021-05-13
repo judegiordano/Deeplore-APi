@@ -1,0 +1,27 @@
+###
+POST http://127.0.0.1:5000/api/user/validate HTTP/1.1
+appcode: somesecret
+apptoken: somesecret2
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidG9rZW5WZXJzaW9uIjowLCJ2ZXJpZmllZCI6ZmFsc2UsImlhdCI6MTYxOTk4NzE0MywiZXhwIjoxNjIwNTkxOTQzfQ.WYKtT5H6uB-qyx6tZnRyRCym10IzYs5u3bIykBe5wSo
+
+###
+POST http://127.0.0.1:5000/api/user/login HTTP/1.1
+Content-Type: application/json
+appcode: somesecret
+apptoken: somesecret2
+
+{
+	"email": "a@a.com",
+	"password": "password"
+}
+
+###
+POST http://127.0.0.1:5000/api/user/register HTTP/1.1
+Content-Type: application/json
+appcode: somesecret
+apptoken: somesecret2
+
+{
+	"email": "a@a.com",
+	"password": "password"
+}

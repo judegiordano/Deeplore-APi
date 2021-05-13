@@ -1,0 +1,28 @@
+GET http://127.0.0.1:5000/api/ HTTP/1.1
+Content-Type: application/json
+appcode: somesecret
+apptoken: somesecret2
+
+###
+GET http://127.0.0.1:5000/api/article/all HTTP/1.1
+Content-Type: application/json
+appcode: somesecret
+apptoken: somesecret2
+
+###
+GET http://127.0.0.1:5000/api/article/4 HTTP/1.1
+Content-Type: application/json
+appcode: somesecret
+apptoken: somesecret2
+
+###
+POST http://127.0.0.1:5000/api/article/new HTTP/1.1
+Content-Type: application/json
+appcode: somesecret
+apptoken: somesecret2
+
+{
+	"title": "this is a new title again",
+	"excerpt": "this is am excerpt",
+	"body": "this is a body"
+}
