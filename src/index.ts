@@ -11,15 +11,15 @@ export default async (fastify: FastifyInstance, opts: FastifyPluginOptions): Pro
 	try {
 		await Database.Connect();
 
-		fastify.register(import("./Middleware/Auth"));
-		fastify.register(import("./Middleware/AppSubscription"));
+		await fastify.register(import("./Middleware/Auth"));
+		await fastify.register(import("./Middleware/AppSubscription"));
 
-		fastify.register(AutoLoad, {
+		await fastify.register(AutoLoad, {
 			dir: path.join(__dirname, "Plugins"),
 			options: Object.assign({}, opts)
 		});
 
-		fastify.register(AutoLoad, {
+		await fastify.register(AutoLoad, {
 			dir: path.join(__dirname, "Controllers"),
 			options: { prefix: `/api/${Options.APP_VERSION}/` },
 			routeParams: false
