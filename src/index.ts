@@ -22,7 +22,7 @@ app.register(AutoLoad, {
 const start = async (): Promise<void> => {
 	try {
 		await Database.Connect();
-		await app.listen(parseInt(Options.PORT as string));
+		await app.listen(parseInt(Options.PORT as string), "0.0.0.0");
 	} catch (error) {
 		console.log(error);
 		process.exit(1);
