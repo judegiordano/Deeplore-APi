@@ -22,7 +22,7 @@ app.register(AutoLoad, {
 const start = async (): Promise<void> => {
 	try {
 		await Database.Connect();
-		app.listen(Options.PORT, () => {
+		app.listen(process.env.PORT || 3000, () => {
 			app.log.info(`server running on ${Options.HOST}/${Options.PORT}`);
 		});
 	} catch (error) {
