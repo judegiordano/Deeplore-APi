@@ -2,7 +2,7 @@ import plugin from "fastify-plugin";
 import cors from "fastify-cors";
 import { FastifyInstance } from "fastify";
 
-import { Config } from "src/Helpers/Config";
+import { Config } from "../Helpers/Config";
 
 const { Options } = Config;
 
