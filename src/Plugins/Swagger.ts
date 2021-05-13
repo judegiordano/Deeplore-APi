@@ -16,7 +16,7 @@ export default plugin(async (fastify: FastifyInstance): Promise<void> => {
 				description: "API documentation for this service",
 				version: "1.0.0",
 			},
-			host: `${Options.HOST}:${Options.PORT}`,
+			host: Options.IS_PROD ? Options.HOST : `${Options.HOST}:${Options.PORT}`,
 			schemes: ["http"],
 			consumes: ["application/json"],
 			produces: ["application/json"],
