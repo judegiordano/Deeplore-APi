@@ -2,7 +2,6 @@ import "dotenv/config";
 
 export class Config {
 
-	private static readonly _PORT = process.env["PORT"] || 3000;
 	private static readonly _HOST = process.env["HOST"] || "127.0.0.1";
 	private static readonly _NODE_ENV = process.env["NODE_ENV"];
 	private static readonly _APP_VERSION = process.env["APP_VERSION"];
@@ -19,7 +18,7 @@ export class Config {
 
 	public static readonly Options = {
 		HOST: Config._HOST,
-		PORT: parseInt(Config._PORT as string),
+		PORT: process.env.PORT || 3000,
 		NODE_ENV: Config._NODE_ENV,
 		APP_VERSION: Config._APP_VERSION || "v1",
 		IS_PROD: Config._NODE_ENV == "production" ? true : false,
