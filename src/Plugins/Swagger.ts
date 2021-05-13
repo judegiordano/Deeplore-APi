@@ -17,7 +17,7 @@ export default plugin(async (fastify: FastifyInstance): Promise<void> => {
 				version: "1.0.0",
 			},
 			host: Options.IS_PROD ? Options.HOST : `${Options.HOST}:${Options.PORT}`,
-			schemes: ["http"],
+			schemes: [Options.IS_PROD ? "https" : "http"],
 			consumes: ["application/json"],
 			produces: ["application/json"],
 			tags: [
