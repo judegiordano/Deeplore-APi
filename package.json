@@ -13,7 +13,7 @@
     "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\"  \"tsc -w\" \"fastify start -w -l info -P .\"",
 	"fastify:start": "fastify start -l --port info .",
 	"prestart": "tsc",
-    "start": "node ."
+    "start": "node . -p $PORT"
   },
   "author": "Jude Giordano",
   "license": "MIT",
