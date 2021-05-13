@@ -7,9 +7,12 @@ import { Config } from "./Helpers/Config";
 
 const { Options } = Config;
 
+(async () => {
+	await Database.Connect();
+})();
+
 export default async (fastify: FastifyInstance, opts: FastifyPluginOptions): Promise<void> => {
 	try {
-		await Database.Connect();
 
 		await fastify.register(import("./Middleware/Auth"));
 		await fastify.register(import("./Middleware/AppSubscription"));
