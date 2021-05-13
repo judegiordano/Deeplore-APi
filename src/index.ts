@@ -22,8 +22,8 @@ app.register(AutoLoad, {
 const start = async (): Promise<void> => {
 	try {
 		await Database.Connect();
-		app.listen(process.env.PORT || 3000, () => {
-			app.log.info(`server running on ${Options.HOST}/${Options.PORT}`);
+		app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
+			app.log.info(`server running on ${Options.HOST}:${Options.PORT}`);
 		});
 	} catch (error) {
 		console.log(error);
