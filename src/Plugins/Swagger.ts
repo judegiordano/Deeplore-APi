@@ -9,14 +9,14 @@ const { Options } = Config;
 
 export default plugin(async (fastify: FastifyInstance): Promise<void> => {
 	fastify.register(swagger, {
-		routePrefix: "/api/docs",
+		routePrefix: `/api/${Options.APP_VERSION}/docs`,
 		swagger: {
 			info: {
 				title: "Deeplore Rest Api",
 				description: "API documentation for this service",
 				version: "1.0.0",
 			},
-			host: "127.0.0.1:5000",
+			host: `${Options.HOST}:${Options.PORT}`,
 			schemes: ["http"],
 			consumes: ["application/json"],
 			produces: ["application/json"],
@@ -25,6 +25,6 @@ export default plugin(async (fastify: FastifyInstance): Promise<void> => {
 				{ name: "JavaStop", description: "Agawam Java Stop related endpoints" }
 			],
 		},
-		exposeRoute: !Options.IS_PROD
+		exposeRoute: true
 	});
 });
