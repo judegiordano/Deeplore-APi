@@ -14,9 +14,8 @@ export default plugin(async (fastify: FastifyInstance): Promise<void> => {
 			info: {
 				title: "Deeplore Rest Api",
 				description: "API documentation for this service",
-				version: "1.0.0",
+				version: Options.APP_VERSION,
 			},
-			host: Options.IS_PROD ? Options.HOST : `${Options.HOST}:${Options.PORT}`,
 			schemes: [Options.IS_PROD ? "https" : "http"],
 			consumes: ["application/json"],
 			produces: ["application/json"],
