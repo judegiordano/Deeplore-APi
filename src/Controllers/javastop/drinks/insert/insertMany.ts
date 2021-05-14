@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
 import { Drink } from "../../../../Repositories/JavaStop/DrinkRepository";
+import { DrinkSchema } from "../../../../Types/JavaStop/Abstract";
 
 interface IBody {
 	drinks: IDrink[]
@@ -33,16 +34,7 @@ export default async (fastify: FastifyInstance): Promise<void> => {
 						ok: { type: "boolean" },
 						drinks: {
 							type: "array",
-							items: {
-								type: "object",
-								properties: {
-									id: { type: "number" },
-									createdAt: { type: "string" },
-									updatedAt: { type: "string" },
-									sugarFreeOption: { type: "boolean" },
-									isActive: { type: "boolean" }
-								}
-							}
+							items: DrinkSchema
 						}
 					}
 				}

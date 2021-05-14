@@ -18,9 +18,7 @@ export class Database {
 		logging: Options.DB_LOGGING,
 		autoReconnect: true,
 		reconnectTries: Number.MAX_VALUE,
-		ssl: {
-			rejectUnauthorized: false
-		},
+		ssl: Options.IS_PROD ? { rejectUnauthorized: false } : false,
 		reconnectInterval: 2000,
 		entities: [path.join(cwd(), "build/Models/**/*.js")]
 	} as ConnectionOptions;

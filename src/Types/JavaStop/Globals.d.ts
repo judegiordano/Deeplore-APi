@@ -4,3 +4,13 @@ declare interface IDrink {
 	isActive: boolean,
 	recipe: string[]
 }
+
+declare interface IFilteredFlavors {
+	drinks: IDrink[],
+	chocolate: IDrink[],
+	whiteChocolate: IDrink[],
+	vanilla: IDrink[],
+	caramel: IDrink[],
+	sugarFree: IDrink[],
+	other: IDrink[]
+}

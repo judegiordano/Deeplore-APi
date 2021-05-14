@@ -1,6 +1,7 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
 import { Drink } from "../../../Repositories/JavaStop/DrinkRepository";
+import { DrinkSchema } from "../../../Types/JavaStop/Abstract";
 
 export default async (fastify: FastifyInstance): Promise<void> => {
 	fastify.get("/", {
@@ -15,17 +16,7 @@ export default async (fastify: FastifyInstance): Promise<void> => {
 						ok: { type: "boolean" },
 						drinks: {
 							type: "array",
-							items: {
-								type: "object",
-								properties: {
-									id: { type: "number" },
-									name: { type: "string" },
-									recipe: { type: "array", items: { type: "string" } },
-									sugarFreeOption: { type: "boolean" },
-									isActive: { type: "boolean" },
-									createdAt: { type: "string" }
-								}
-							}
+							items: DrinkSchema
 						}
 					}
 				}

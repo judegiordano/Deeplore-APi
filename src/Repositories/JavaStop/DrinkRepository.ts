@@ -40,4 +40,26 @@ export class Drink {
 			throw new Error(error);
 		}
 	}
+
+	public static async GetPopularFlavors(): Promise<IFilteredFlavors> {
+		try {
+			const drinks = await _Drink.find();
+			return {
+				drinks,
+				chocolate: drinks.filter(a => a.recipe.includes("chocolate")),
+				whiteChocolate: drinks.filter(a => a.recipe.includes("white chocolate")),
+				vanilla: drinks.filter(a => a.recipe.includes("vanilla")),
+				caramel: drinks.filter(a => a.recipe.includes("caramel")),
+				sugarFree: drinks.filter(a => a.sugarFreeOption),
+				other: drinks.filter(a =>
+					!a.recipe.includes("chocolate") &&
+					!a.recipe.includes("white chocolate") &&
+					!a.recipe.includes("vanilla") &&
+					!a.recipe.includes("caramel")
+				)
+			};
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
 }
