@@ -10,9 +10,8 @@
     "db:down": "ts-node ./node_modules/typeorm/cli.js migration:revert",
     "db:up": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "build": "tsc",
-    "dev": "tsc && concurrently -k -p \"[{name}]\" -n \"TypeScript,App\" -c \"yellow.bold,cyan.bold\"  \"tsc -w\" \"fastify start -w -l info -P .\"",
-	"fastify:start": "fastify start -l --port info .",
-	"prestart": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
+    "prestart": "tsc",
     "start": "node ."
   },
   "author": "Jude Giordano",
@@ -27,6 +26,7 @@
     "fastify-cors": "^6.0.1",
     "fastify-helmet": "^5.3.1",
     "fastify-plugin": "^3.0.0",
+    "fastify-rate-limit": "^5.5.0",
     "fastify-sensible": "^3.1.1",
     "fastify-swagger": "^4.7.0",
     "jsonwebtoken": "^8.5.1",
@@ -42,6 +42,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "concurrently": "^6.0.2",
-    "eslint": "^7.25.0"
+    "eslint": "^7.25.0",
+    "ts-node-dev": "^1.1.6"
   }
 }

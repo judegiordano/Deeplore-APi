@@ -1,4 +1,6 @@
+import os from "os";
 import path from "path";
+import cluster from "cluster";
 import fastify from "fastify";
 import AutoLoad from "fastify-autoload";
 
@@ -22,11 +24,16 @@ app.register(AutoLoad, {
 const start = async (): Promise<void> => {
 	try {
 		await Database.Connect();
-		await app.listen(parseInt(Options.PORT as string), "0.0.0.0");
+		await app.listen(parseInt(Options.PORT as string), Options.IS_PROD ? "0.0.0.0" : "127.0.0.1");
 	} catch (error) {
 		console.log(error);
 		process.exit(1);
 	}
 };
 
-start();
+if (cluster.isMaster) {
+	for (let i = 0; i < os.cpus().length; i++) {
+		cluster.fork();
+	}
+}
+else start();
