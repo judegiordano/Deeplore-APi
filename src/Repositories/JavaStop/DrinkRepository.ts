@@ -41,6 +41,40 @@ export class Drink {
 		}
 	}
 
+	public static async GetById(id: number): Promise<_Drink> {
+		try {
+			const drink = await _Drink.findOne({ id });
+			if (!drink) throw `drink not found with id ${id}`;
+
+			return drink;
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+
+	public static async GetByName(name: string): Promise<_Drink[]> {
+		try {
+			const drink = await _Drink.createQueryBuilder().where("Drink.name LIKE :name", { name: `%${name}%` }).getMany();
+			if (drink.length <= 0) throw `drinks not found with name ${name}`;
+
+			return drink;
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+
+	public static async DeleteById(id: number): Promise<_Drink> {
+		try {
+			const drink = await _Drink.findOne({ id });
+			if (!drink) throw `drink not found with id ${id}`;
+			const removed = await _Drink.remove(drink);
+
+			return removed;
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+
 	public static async GetPopularFlavors(): Promise<IFilteredFlavors> {
 		try {
 			const drinks = await _Drink.find();
