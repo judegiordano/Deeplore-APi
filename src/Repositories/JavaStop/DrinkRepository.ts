@@ -90,7 +90,7 @@ export class Drink {
 
 	public static async GetPopularFlavors(): Promise<IFilteredFlavors> {
 		try {
-			const drinks = await _Drink.find();
+			const drinks = await _Drink.find({ order: { name: "ASC" } });
 			return {
 				drinks,
 				chocolate: drinks.filter(a => a.recipe.includes("chocolate")),
