@@ -63,6 +63,19 @@ export class Drink {
 		}
 	}
 
+	public static async GetByRecipe(ingredients: string[]): Promise<_Drink[]> {
+		try {
+			console.log(ingredients);
+			const drinks = await _Drink.createQueryBuilder().where("Drink.recipe @> :recipe", { recipe: ingredients }).getMany();
+			if (drinks.length <= 0) throw `drinks not found with ingredients [${ingredients.toString()}]`;
+
+			return drinks;
+		} catch (error) {
+			console.log(error);
+			throw new Error(error);
+		}
+	}
+
 	public static async DeleteById(id: number): Promise<_Drink> {
 		try {
 			const drink = await _Drink.findOne({ id });
