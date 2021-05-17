@@ -41,6 +41,22 @@ export class Drink {
 		}
 	}
 
+	public static async GetAllIngredients(): Promise<string[]> {
+		try {
+			const drinks = await _Drink.createQueryBuilder().select("Drink.recipe").getMany();
+			const ingredients: string[] = [];
+
+			for (const key in drinks)
+				ingredients.push(...drinks[key]?.recipe as string[]);
+
+			return ingredients.filter((c, index) => {
+				return ingredients.indexOf(c) === index;
+			}).sort();
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+
 	public static async GetById(id: number): Promise<_Drink> {
 		try {
 			const drink = await _Drink.findOne({ id });
