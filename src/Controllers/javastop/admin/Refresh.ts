@@ -1,29 +1,28 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
-import { Drink } from "../../../../Repositories/JavaStop/DrinkRepository";
-import { DrinkSchema } from "../../../../Types/JavaStop/Abstract";
+import { Jwt } from "../../../Helpers/Jwt";
+import { AdminSchema } from "../../../Types/JavaStop/Abstract";
 
 export default async (fastify: FastifyInstance): Promise<void> => {
-	fastify.put("/", {
-		preValidation: [fastify.javastop],
+	fastify.post("/refresh", {
+		preValidation: [fastify.javastop, fastify.authentication],
 		schema: {
 			tags: ["JavaStop"],
-			summary: "insert new drink",
-			body: {
+			summary: "login as a verified admin",
+			headers: {
 				type: "object",
 				properties: {
-					name: { type: "string" },
-					sugarFreeOption: { type: "boolean" },
-					isActive: { type: "boolean" },
-					recipe: { type: "array", items: { type: "string" } }
-				}
+					Authorization: { type: "string" }
+				},
+				required: ["Authorization"]
 			},
 			response: {
 				200: {
 					type: "object",
 					properties: {
 						ok: { type: "boolean" },
-						drink: DrinkSchema
+						token: { type: "string" },
+						admin: AdminSchema
 					}
 				}
 			}
@@ -33,7 +32,8 @@ export default async (fastify: FastifyInstance): Promise<void> => {
 			res.statusCode = 200;
 			return {
 				ok: true,
-				drink: await Drink.Insert(req.body as IDrink)
+				token: Jwt.Sign(req.user),
+				admin: req.user
 			};
 		} catch (error) {
 			throw new Error(error);

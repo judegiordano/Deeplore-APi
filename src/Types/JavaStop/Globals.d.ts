@@ -14,3 +14,11 @@ declare interface IFilteredFlavors {
 	sugarFree: IDrink[],
 	other: IDrink[]
 }
+
+declare interface IJavaAdmin {
+	id?: number,
+	uid: string,
+	username: string,
+	password: string,
+	tokenVersion?: number,
+}

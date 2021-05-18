@@ -9,3 +9,14 @@ export const DrinkSchema = {
 		createdAt: { type: "string" }
 	}
 };
+
+export const AdminSchema = {
+	type: "object",
+	properties: {
+		id: { type: "number" },
+		uid: { type: "string" },
+		username: { type: "string" },
+		tokenVersion: { type: "number" },
+		createdAt: { type: "string" }
+	}
+};

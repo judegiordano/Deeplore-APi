@@ -1,6 +1,6 @@
 import argon from "argon2";
 
-export default class Password {
+export class Password {
 
 	public static async Hash(password: string): Promise<string> {
 		try {

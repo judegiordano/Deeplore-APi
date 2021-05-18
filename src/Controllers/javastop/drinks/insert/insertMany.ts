@@ -8,7 +8,7 @@ interface IBody {
 }
 
 export default async (fastify: FastifyInstance): Promise<void> => {
-	fastify.post("/many", {
+	fastify.put("/many", {
 		preValidation: [fastify.javastop],
 		schema: {
 			tags: ["JavaStop"],

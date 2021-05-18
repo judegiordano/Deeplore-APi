@@ -1,21 +1,19 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
-import { Drink } from "../../../../Repositories/JavaStop/DrinkRepository";
-import { DrinkSchema } from "../../../../Types/JavaStop/Abstract";
+import { Admin } from "../../../Repositories/JavaStop/AdminRepository";
+import { AdminSchema } from "../../../Types/JavaStop/Abstract";
 
 export default async (fastify: FastifyInstance): Promise<void> => {
-	fastify.put("/", {
-		preValidation: [fastify.javastop],
+	fastify.put("/newadmin", {
+		preValidation: [fastify.developer],
 		schema: {
-			tags: ["JavaStop"],
-			summary: "insert new drink",
+			tags: ["Dev"],
+			summary: "as dev, insert a new admin",
 			body: {
 				type: "object",
 				properties: {
-					name: { type: "string" },
-					sugarFreeOption: { type: "boolean" },
-					isActive: { type: "boolean" },
-					recipe: { type: "array", items: { type: "string" } }
+					username: { type: "string" },
+					password: { type: "string" }
 				}
 			},
 			response: {
@@ -23,7 +21,7 @@ export default async (fastify: FastifyInstance): Promise<void> => {
 					type: "object",
 					properties: {
 						ok: { type: "boolean" },
-						drink: DrinkSchema
+						admin: AdminSchema
 					}
 				}
 			}
@@ -33,7 +31,7 @@ export default async (fastify: FastifyInstance): Promise<void> => {
 			res.statusCode = 200;
 			return {
 				ok: true,
-				drink: await Drink.Insert(req.body as IDrink)
+				admin: await Admin.Register(req.body as IJavaAdmin)
 			};
 		} catch (error) {
 			throw new Error(error);

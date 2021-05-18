@@ -38,4 +38,8 @@ export class Config {
 		JAVASTOP_SUBSCRIPTION: process.env["JAVASTOP_SUBSCRIPTION"] as string,
 		DEV_SUBSCRIPTION: process.env["DEV_SUBSCRIPTION"] as string,
 	}
+
+	public static readonly JwtSecrets = {
+		JAVASTOP_JWT_SECRET: process.env["JAVASTOP_JWT_SECRET"] as string,
+	}
 }

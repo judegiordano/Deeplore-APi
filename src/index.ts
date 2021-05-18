@@ -11,6 +11,7 @@ const { Options } = Config;
 const app = fastify({ logger: true });
 
 app.register(import("./Middleware/Auth"));
+app.register(import("./Middleware/JwtAuth"));
 app.register(import("./Middleware/AppSubscription"));
 app.register(AutoLoad, {
 	dir: path.join(__dirname, "Plugins"),

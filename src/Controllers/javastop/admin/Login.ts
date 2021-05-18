@@ -1,21 +1,20 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
-import { Drink } from "../../../../Repositories/JavaStop/DrinkRepository";
-import { DrinkSchema } from "../../../../Types/JavaStop/Abstract";
+import { Jwt } from "../../../Helpers/Jwt";
+import { Admin } from "../../../Repositories/JavaStop/AdminRepository";
+import { AdminSchema } from "../../../Types/JavaStop/Abstract";
 
 export default async (fastify: FastifyInstance): Promise<void> => {
-	fastify.put("/", {
+	fastify.post("/login", {
 		preValidation: [fastify.javastop],
 		schema: {
 			tags: ["JavaStop"],
-			summary: "insert new drink",
+			summary: "login as a verified admin",
 			body: {
 				type: "object",
 				properties: {
-					name: { type: "string" },
-					sugarFreeOption: { type: "boolean" },
-					isActive: { type: "boolean" },
-					recipe: { type: "array", items: { type: "string" } }
+					username: { type: "string" },
+					password: { type: "string" }
 				}
 			},
 			response: {
@@ -23,17 +22,20 @@ export default async (fastify: FastifyInstance): Promise<void> => {
 					type: "object",
 					properties: {
 						ok: { type: "boolean" },
-						drink: DrinkSchema
+						admin: AdminSchema,
+						token: { type: "string" }
 					}
 				}
 			}
 		}
 	}, async (req: FastifyRequest, res: FastifyReply) => {
+		const admin = await Admin.Login(req.body as IJavaAdmin);
 		try {
 			res.statusCode = 200;
 			return {
 				ok: true,
-				drink: await Drink.Insert(req.body as IDrink)
+				token: Jwt.Sign(admin),
+				admin
 			};
 		} catch (error) {
 			throw new Error(error);
