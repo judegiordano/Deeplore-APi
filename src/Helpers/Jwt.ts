@@ -12,7 +12,7 @@ export class Jwt {
 			uid: user.uid,
 			username: user.username,
 			tokenVersion: user.tokenVersion
-		}, Jwt.Secret, { expiresIn: "10s" });
+		}, Jwt.Secret, { expiresIn: "1d" });
 	}
 
 	public static Verify(token: string): IJavaAdmin {
