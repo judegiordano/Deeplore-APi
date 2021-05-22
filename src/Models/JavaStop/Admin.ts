@@ -27,6 +27,6 @@ export class Admin extends Base {
 
 	@BeforeInsert()
 	makeUid(): void {
-		this.uid = Utility.RandomUid(15);
+		this.uid = Utility.CreateUUID();
 	}
 }
