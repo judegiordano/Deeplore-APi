@@ -1,3 +1,4 @@
+import "dotenv/config";
 import os from "os";
 import path from "path";
 import cluster from "cluster";
@@ -6,9 +7,14 @@ import AutoLoad from "fastify-autoload";
 
 import { Config } from "./Helpers/Config";
 import { Database } from "./Helpers/Database";
+import { Log } from "./Helpers/Logger";
+
+console.log(Config.Options);
+console.log(process.env);
+console.log(process.env.NODE_ENV);
 
 const { Options } = Config;
-const app = fastify({ logger: true });
+const app = fastify({ logger: !Options.IS_PROD });
 
 app.register(import("./Middleware/Auth"));
 app.register(import("./Middleware/JwtAuth"));
@@ -22,7 +28,7 @@ app.register(AutoLoad, {
 	routeParams: false
 });
 app.setErrorHandler(async (error: FastifyError) => {
-	console.log(error);
+	Log.Error(error);
 	return {
 		ok: false,
 		status: 500,
@@ -33,9 +39,10 @@ app.setErrorHandler(async (error: FastifyError) => {
 const start = async (): Promise<void> => {
 	try {
 		await Database.Connect();
+		Log.Info("Application started", "Application Entrance");
 		await app.listen(Options.PORT, Options.IS_PROD ? "0.0.0.0" : "127.0.0.1");
-	} catch (error) {
-		console.log(error);
+	} catch (e) {
+		Log.Error(e, "Application Entrance");
 		await app.close();
 		await Database.Close();
 		process.exit(1);

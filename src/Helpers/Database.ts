@@ -2,7 +2,8 @@ import path from "path";
 import { cwd } from "process";
 import { Connection, ConnectionOptions, createConnection, getConnection } from "typeorm";
 
-import { Config } from "../Helpers/Config";
+import { Config } from "./Config";
+import { Log } from "./Logger";
 const { Options, Db } = Config;
 
 export class Database {
@@ -29,7 +30,7 @@ export class Database {
 		try {
 			connection = getConnection();
 		} catch (e) {
-			console.error("error connecting to database", e);
+			Log.Info(`no existing connection found: ${e}`, "Database");
 		}
 
 		try {
@@ -38,9 +39,9 @@ export class Database {
 					await connection.connect();
 			} else
 				await createConnection(Database.Orm);
-			console.info("successfully connected to database");
+			Log.Info(" successfully connected to database", "Database");
 		} catch (e) {
-			console.error("error connecting to database", e);
+			Log.Error(`error connecting to database: ${e}`, "Database");
 			throw Error(e);
 		}
 	}

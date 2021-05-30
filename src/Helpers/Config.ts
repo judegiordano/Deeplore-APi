@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 export class Config {
 
 	public static readonly Options = {
@@ -8,8 +6,7 @@ export class Config {
 		NODE_ENV: process.env.NODE_ENV ?? "development",
 		APP_VERSION: process.env.APP_VERSION || "v1",
 		IS_PROD: process.env.NODE_ENV == "production" ? true : false,
-		APPCODE: process.env.APPCODE,
-		JWT_SECRET: process.env.JWT_SECRET as string
+		APPCODE: process.env.APPCODE
 	}
 
 	public static readonly Db = {
