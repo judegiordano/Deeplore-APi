@@ -9,10 +9,6 @@ import { Config } from "./Helpers/Config";
 import { Database } from "./Helpers/Database";
 import { Log } from "./Helpers/Logger";
 
-console.log(Config.Options);
-console.log(process.env);
-console.log(process.env.NODE_ENV);
-
 const { Options } = Config;
 const app = fastify({ logger: !Options.IS_PROD });
 
